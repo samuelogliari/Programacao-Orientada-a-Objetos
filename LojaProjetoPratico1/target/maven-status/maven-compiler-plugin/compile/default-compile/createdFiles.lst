@@ -1,0 +1,11 @@
+com\mycompany\lojaprojetopratico1\Compras.class
+com\mycompany\lojaprojetopratico1\Clientes.class
+controladores\ControlaCompras.class
+controladores\ControlaClientes.class
+entidades\Cliente.class
+entidades\Compra.class
+entidades\Produto.class
+com\mycompany\lojaprojetopratico1\LojaProjetoPratico1.class
+com\mycompany\lojaprojetopratico1\Produtos.class
+controladores\ControlaProdutos.class
+apoio\Entrada.class
