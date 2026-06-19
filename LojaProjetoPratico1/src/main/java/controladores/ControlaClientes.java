@@ -58,11 +58,23 @@ public class ControlaClientes {
         }
     }
 
+    public Cliente buscar(String buscar) {
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);
+            if (cliente.getNome().equals(buscar)) {
+                System.out.println("O nome do cliente é" + cliente.getNome() );
+                return cliente;
+            }
+
+        }
+        return null;
+    }
+
     public Cliente consultar(int codigo) {
         for (int i = 0; i < clientes.size(); i++) {
             Cliente clienteTemp = clientes.get(i);
             if (clienteTemp.getCodigo() == codigo) {
-
+               
                 return clienteTemp;
 
             }

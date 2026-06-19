@@ -84,9 +84,10 @@ public class Compras {
                         Compra com = new Compra(codigo, c, produtos, dataCompra, valorTotal);
 
                         ccom.salvar(com);
-
+                        
+                        
                         System.out.println("Compra cadastrada com sucesso!");
-
+                        System.out.println("------------------------------");
                     } else {
 
                         System.out.println("Nenhum produto foi adicionado!");

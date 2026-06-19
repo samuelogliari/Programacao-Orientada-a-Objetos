@@ -25,6 +25,7 @@ public class Clientes {
                     + "[3] Consultar um cliente\n"
                     + "[4] Editar um cliente\n"
                     + "[5] Excluir um cliente\n"
+                    + "[6] Buscar um cliente\n"
                     + "[0] Sair do sistema");
 
             if (opcao == 1) { //criar
@@ -92,7 +93,10 @@ public class Clientes {
                 int codigoExclusao = Entrada.leiaInt("Digite o codigo do cliente que quer excluir: ");
                 cc.excluir(codigoExclusao);
             }
-
+            else if (opcao == 6) { //buscar
+                String buscar = Entrada.leiaString("Digite o Nome do cliente: ");
+                cc.buscar(buscar);
+            }
         }
     }
 }
