@@ -4,8 +4,8 @@
  */
 package telas;
 
-import controladores.ControlaAnime;
-import entidades.Anime;
+import controladores.ControlaFilme;
+import entidades.Filme;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class TelaFilme extends javax.swing.JFrame {
 
-    private ControlaAnime ca = new ControlaAnime();
+    private ControlaFilme cf = new ControlaFilme();
     int codigo = 0;
 
     public TelaFilme() {
@@ -26,15 +26,15 @@ public class TelaFilme extends javax.swing.JFrame {
     }
 
     private void montaTabela() {
-        ArrayList<Anime> itens = ca.recuperarTodos();
+        ArrayList<Filme> itens = cf.recuperarTodos();
 
-        String[] colunas = {"ID", "Título", "Gênero", "Estudio", "Ano", "Tem Mangá", "Tem Dublagem"};
+        String[] colunas = {"ID", "Título", "Gênero", "Diretor", "Duração", "Classificação", "Ano"};
 
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
         for (int i = 0; i < itens.size(); i++) {
-            Anime a = itens.get(i);
-            Object[] linha = {a.getCodigo(), a.getTitulo(), a.getGenero(), a.getEstudio(), a.getAnoLancamento(), a.isTemManga(), a.isDublado()};
+            Filme f = itens.get(i);
+            Object[] linha = {f.getCodigo(), f.getTitulo(), f.getGenero(), f.getDiretor(), f.getDuracao(), f.getClassificacao(), f.getAnoLancamento() };
             modelo.addRow(linha);
         }
 
@@ -65,8 +65,6 @@ public class TelaFilme extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtEstudio = new javax.swing.JTextField();
         spnAno = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblItens = new javax.swing.JTable();
@@ -77,13 +75,19 @@ public class TelaFilme extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtDiretor = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtDuracao = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtClassificacao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Titulo:");
+        jLabel1.setText("Título:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,10 +96,6 @@ public class TelaFilme extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ano do Lançamento:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Estudio:");
 
         tblItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,68 +155,81 @@ public class TelaFilme extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Diretor:");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Duração:");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Classificação:");
+
+        txtClassificacao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtGenero))
-                            .addGap(29, 29, 29))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(btnExcluir)
+                            .addComponent(btnEditar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                                .addComponent(btnListar))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnVoltar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtEstudio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(spnAno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnExcluir)
-                                            .addComponent(btnEditar)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnSalvar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnListar)))))))
-                        .addGap(37, 37, 37)))
-                .addGap(29, 29, 29)
-                .addComponent(btnVoltar)
-                .addGap(15, 15, 15)
+                                .addComponent(txtClassificacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                                .addComponent(txtDuracao, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDiretor, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtGenero, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel3)
+                            .addComponent(spnAno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEstudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDiretor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtClassificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnListar))
@@ -227,27 +240,28 @@ public class TelaFilme extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnVoltar))
                 .addGap(24, 24, 24))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Anime a = new Anime(
+        Filme f = new Filme(
                 txtTitulo.getText(),
                 txtGenero.getText(),
-                txtEstudio.getText(),
-                (int) spnAno.getValue(),
-                cbTemManga.getSelectedItem().toString().equals("Sim"),
-                cbDublado.getSelectedItem().toString().equals("Sim")
+                txtDiretor.getText(),
+                txtDuracao.getText(),
+                txtClassificacao.getText(),
+                (int) spnAno.getValue()
         );
+                
 
         if (codigo == 0) {
-            ca.salvar(a);
+            cf.salvar(f);
         } else {
-            a.setCodigo(codigo);
-            ca.editar(a);
+            f.setCodigo(codigo);
+            cf.editar(f);
             codigo = 0;
         }
         btnSalvar.setText("Salvar");
@@ -255,7 +269,9 @@ public class TelaFilme extends javax.swing.JFrame {
 
         txtTitulo.setText("");
         txtGenero.setText("");
-        txtEstudio.setText("");
+        txtDiretor.setText("");
+        txtDuracao.setText("");
+        txtClassificacao.setText("");
         spnAno.setValue(0);
 
         txtTitulo.requestFocus();
@@ -267,15 +283,16 @@ public class TelaFilme extends javax.swing.JFrame {
         String idString = String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0)); //quando selecionar a linha com o mouse
         int id = Integer.parseInt(idString);
 
-        Anime a = ca.recuperarUm(id);
-        if (a != null) {
-            codigo = a.getCodigo();
-            txtTitulo.setText(a.getTitulo());
-            txtGenero.setText(a.getGenero());
-            txtEstudio.setText(a.getEstudio());
-            spnAno.setValue(a.getAnoLancamento());
-            cbTemManga.setSelectedItem(a.isTemManga() ? "Sim" : "Não");
-            cbDublado.setSelectedItem(a.isDublado() ? "Sim" : "Não");
+        Filme f = cf.recuperarUm(id);
+        if (f != null) {
+            codigo = f.getCodigo();
+            txtTitulo.setText(f.getTitulo());
+            txtGenero.setText(f.getGenero());
+            txtDiretor.setText(f.getDiretor());
+            txtDuracao.setText(f.getDuracao());
+            txtClassificacao.setText(f.getClassificacao());
+            spnAno.setValue(f.getAnoLancamento());
+            
 
             btnSalvar.setText("Atualizar");
         }
@@ -290,7 +307,7 @@ public class TelaFilme extends javax.swing.JFrame {
         String idString = String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0)); //quando selecionar a linha com o mouse
         int id = Integer.parseInt(idString);
 
-        ca.excluir(id);
+        cf.excluir(id);
         montaTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -347,11 +364,15 @@ public class TelaFilme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner spnAno;
     private javax.swing.JTable tblItens;
-    private javax.swing.JTextField txtEstudio;
+    private javax.swing.JTextField txtClassificacao;
+    private javax.swing.JTextField txtDiretor;
+    private javax.swing.JTextField txtDuracao;
     private javax.swing.JTextField txtGenero;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables

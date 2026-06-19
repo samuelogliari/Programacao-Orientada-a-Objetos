@@ -119,11 +119,13 @@ public class TelaMenu extends javax.swing.JFrame {
     private void btnFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmeActionPerformed
         TelaFilme tf = new TelaFilme();
         tf.setVisible(true);
+        this.dispose(); // fecha o menu atual
     }//GEN-LAST:event_btnFilmeActionPerformed
 
     private void btnSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerieActionPerformed
         TelaSerie ts = new TelaSerie();
         ts.setVisible(true);
+        this.dispose(); // fecha o menu atual
     }//GEN-LAST:event_btnSerieActionPerformed
 
     /**
