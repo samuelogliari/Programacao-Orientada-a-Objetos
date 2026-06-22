@@ -14,7 +14,7 @@ public class Serie extends Midia {
     private int episodios;
     private String produtora;
 
-    public Serie(int temporadas, int episodios, String produtora, String titulo, String genero, int anoLancamento) {
+    public Serie(String titulo, String genero, String produtora, int temporadas, int episodios, int anoLancamento) {
         super(titulo, genero, anoLancamento);
         this.temporadas = temporadas;
         this.episodios = episodios;

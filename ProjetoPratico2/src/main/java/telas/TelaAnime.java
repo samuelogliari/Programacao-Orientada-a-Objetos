@@ -4,6 +4,7 @@
  */
 package telas;
 
+import apoio.Mensagem;
 import controladores.ControlaAnime;
 import entidades.Anime;
 import javax.swing.table.DefaultTableModel;
@@ -310,16 +311,17 @@ public class TelaAnime extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-            montaTabela();
-      
+        montaTabela();
+
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        String idString = String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0)); //quando selecionar a linha com o mouse
-        int id = Integer.parseInt(idString);
-
-        ca.excluir(id);
-        montaTabela();
+        int confirmacao = Mensagem.confirmacao("Deseja realmente excluir?");
+        if (confirmacao == 0) {
+            int codigo = Integer.parseInt(String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0))); //pega o codigo da coluna 0, com o codigo
+            ca.excluir(codigo); //que queremos, selecionando com o mouse, transforma String em int. e usamos o codigo selecionado para o resto.
+            montaTabela();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

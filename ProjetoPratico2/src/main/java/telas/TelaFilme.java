@@ -4,6 +4,7 @@
  */
 package telas;
 
+import apoio.Mensagem;
 import controladores.ControlaFilme;
 import entidades.Filme;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +35,7 @@ public class TelaFilme extends javax.swing.JFrame {
 
         for (int i = 0; i < itens.size(); i++) {
             Filme f = itens.get(i);
-            Object[] linha = {f.getCodigo(), f.getTitulo(), f.getGenero(), f.getDiretor(), f.getDuracao(), f.getClassificacao(), f.getAnoLancamento() };
+            Object[] linha = {f.getCodigo(), f.getTitulo(), f.getGenero(), f.getDiretor(), f.getDuracao(), f.getClassificacao(), f.getAnoLancamento()};
             modelo.addRow(linha);
         }
 
@@ -255,7 +256,6 @@ public class TelaFilme extends javax.swing.JFrame {
                 txtClassificacao.getText(),
                 (int) spnAno.getValue()
         );
-                
 
         if (codigo == 0) {
             cf.salvar(f);
@@ -292,23 +292,23 @@ public class TelaFilme extends javax.swing.JFrame {
             txtDuracao.setText(f.getDuracao());
             txtClassificacao.setText(f.getClassificacao());
             spnAno.setValue(f.getAnoLancamento());
-            
 
             btnSalvar.setText("Atualizar");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-            montaTabela();
-      
+        montaTabela();
+
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        String idString = String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0)); //quando selecionar a linha com o mouse
-        int id = Integer.parseInt(idString);
-
-        cf.excluir(id);
-        montaTabela();
+        int confirmacao = Mensagem.confirmacao("Deseja realmente excluir?");
+        if (confirmacao == 0) {
+            int codigo = Integer.parseInt(String.valueOf(tblItens.getValueAt(tblItens.getSelectedRow(), 0))); //pega o codigo da coluna 0, com o codigo
+            cf .excluir(codigo); //que queremos, selecionando com o mouse, transforma String em int. e usamos o codigo selecionado para o resto
+            montaTabela();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
